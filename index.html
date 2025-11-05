@@ -135,14 +135,10 @@
 const WACZ_URL = 'https://pub-9129e4ace37c47eb87cf7f344b693254.r2.dev/rswblog-archive-2025.wacz';
 
 function loadArchive() {
-    if (WACZ_URL === 'https://pub-9129e4ace37c47eb87cf7f344b693254.r2.dev/rswblog-archive-2025.wacz') {
-        alert(
-            'Configuration Required:\n\n' +
-            'Please update the WACZ_URL in this HTML file with your Cloudflare R2 public URL.\n\n' +
-            'Open the HTML file in a text editor and replace "YOUR_R2_PUBLIC_URL_HERE" with your actual R2 URL.'
-        );
-        return;
-    }
+    if (!WACZ_URL || WACZ_URL.includes('https://pub-9129e4ace37c47eb87cf7f344b693254.r2.dev')) {
+    alert('…');
+    return;
+}
 
     const iframe = document.getElementById('replay-iframe');
     const loading = document.getElementById('loading');
