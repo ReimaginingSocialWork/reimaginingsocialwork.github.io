@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSW Blog Archive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .description {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .info-banner {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        
+        .info-banner p {
+            color: #1565c0;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        
+        .info-banner a {
+            color: #0d47a1;
+            text-decoration: underline;
+        }
+        
+        .viewer-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            margin: 0;
+        }
+        
+        #replay-iframe {
+            width: 100%;
+            flex: 1;
+            border: none;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .error {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .error h2 {
+            color: #d32f2f;
+            margin-bottom: 15px;
+        }
+        
+        .error p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .error code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>RSW Blog Archive</h1>
+            <p class="description">Preserved web archive of the RSW blog from 2015-2025, created using Browsertrix and hosted as a WACZ file.</p>
+            <div class="info-banner">
+                <p><strong>About this archive:</strong> This is a complete snapshot of the blog, viewable through ReplayWeb.page technology.</p>
+                <p><strong>Permanent backup:</strong> <a href="https://archive.org/details/rswblog-archive-2025" target="_blank">Available on Internet Archive</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="viewer-container">
+        <div class="loading" id="loading">
+            <p>Loading archive viewer...</p>
+            <p style="font-size: 14px; margin-top: 10px; color: #999;">This may take a moment for the first load.</p>
+        </div>
+        <div id="error-container" style="display: none;"></div>
+        <iframe id="replay-iframe" style="display: none;"></iframe>
+    </div>
+
+    <script>
+        // IMPORTANT: Replace this URL with your actual R2 public URL
+        const WACZ_URL = 'https://pub-9129e4ace37c47eb87cf7f344b693254.r2.dev';
+        
+        // Example: const WACZ_URL = 'https://pub-xxxxx.r2.dev/rswblog-archive-2025.wacz';
+        
+        function loadArchive() {
+            if (WACZ_URL === 'https://pub-9129e4ace37c47eb87cf7f344b693254.r2.dev'
+                    'Configuration Required',
+                    'Please update the WACZ_URL in this HTML file with your Cloudflare R2 public URL.',
+                    'Open the HTML file in a text editor and replace "YOUR_R2_PUBLIC_URL_HERE" with your actual R2 URL.'
+                );
+                return;
+            }
+            
+            const iframe = document.getElementById('replay-iframe');
+            const loading = document.getElementById('loading');
+            
+            // Build ReplayWeb.page URL with embedded mode
+            const replayUrl = `https://replayweb.page/replay/?source=${encodeURIComponent(WACZ_URL)}&embed=replayonly`;
+            
+            iframe.src = replayUrl;
+            
+            // Show iframe after a brief delay
+            setTimeout(() => {
+                loading.style.display = 'none';
+                iframe.style.display = 'block';
+            }, 1000);
+            
+            // Handle iframe load errors
+            iframe.onerror = () => {
+                showError(
+                    'Failed to Load Archive',
+                    'There was a problem loading the web archive.',
+                    'Please check that the WACZ file URL is correct and accessible.'
+                );
+            };
+        }
+        
+        function showError(title, message, details) {
+            const loading = document.getElementById('loading');
+            const errorContainer = document.getElementById('error-container');
+            
+            loading.style.display = 'none';
+            errorContainer.style.display = 'block';
+            errorContainer.innerHTML = `
+                <div class="error">
+                    <h2>${title}</h2>
+                    <p>${message}</p>
+                    ${details ? `<p>${details}</p>` : ''}
+                    <p style="margin-top: 20px;">
+                        <strong>Alternative:</strong> You can download the WACZ file directly from 
+                        <a href="https://archive.org/details/rswblog-archive-2025">Internet Archive</a> 
+                        and view it using the <a href="https://replayweb.page">ReplayWeb.page desktop app</a>.
+                    </p>
+                </div>
+            `;
+        }
+        
+        // Start loading when page is ready
+        window.addEventListener('load', loadArchive);
+    </script>
+</body>
+</html>
