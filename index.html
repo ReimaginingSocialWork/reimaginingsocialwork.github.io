@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSW Blog Archive</title>
+    <title>Reimagining Social Work - Blog Archive</title>
     <style>
         * {
             margin: 0;
@@ -12,94 +12,286 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
         }
         
         .header {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
         }
         
         h1 {
-            color: #333;
+            font-size: 36px;
             margin-bottom: 10px;
-            font-size: 28px;
         }
         
-        .description {
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .intro {
             color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
             font-size: 16px;
-            margin-bottom: 15px;
         }
         
-        .info-banner {
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .browse-options {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .browse-btn {
+            display: block;
+            padding: 20px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+        }
+        
+        .browse-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        .browse-btn-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .browse-btn-desc {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .info-box {
             background: #e3f2fd;
             border-left: 4px solid #2196f3;
-            padding: 12px 16px;
+            padding: 20px;
             border-radius: 4px;
-            margin-top: 10px;
+            margin-top: 30px;
         }
         
-        .info-banner p {
+        .info-box h3 {
             color: #1565c0;
-            font-size: 14px;
-            margin: 5px 0;
+            margin-bottom: 10px;
+            font-size: 18px;
         }
         
-        .info-banner a {
-            color: #0d47a1;
+        .info-box p {
+            color: #1976d2;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            color: #1976d2;
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        
+        .link-list {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .link-list li {
+            margin-bottom: 10px;
+        }
+        
+        .link-list a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .link-list a:hover {
             text-decoration: underline;
         }
         
-        .viewer-container {
-            flex: 1;
-            display: flex;
-            background: white;
-            margin: 0;
-            position: relative;
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 30px;
         }
         
-        #replay-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
+        .warning-box h3 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .warning-box p {
+            color: #856404;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .warning-box ol {
+            color: #856404;
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        
+        .warning-box li {
+            margin-bottom: 12px;
+        }
+        
+        .warning-box code {
+            background: rgba(0,0,0,0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+        
+        .warning-box strong {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        
+        .example-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        
+        .example-title {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 8px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .example-url {
+            color: #0066cc;
+            word-break: break-all;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-content">
-            <h1>RSW Blog Archive</h1>
-            <p class="description">Preserved web archive of the Reimagining Social Work Blog 2015-2025, created using Browsertrix.</p>
-            <div class="info-banner">
-                <p><strong>About:</strong> Complete snapshot viewable through ReplayWeb.page technology.</p>
-                <p><strong>Permanent backup of source file:</strong> <a href="https://archive.org/details/rswblog-archive-2025" target="_blank">Internet Archive</a></p>
+    <div class="container">
+        <div class="header">
+            <h1>Reimagining Social Work</h1>
+            <p class="subtitle">Blog Archive - Preserved November 2025</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <p>Welcome to the archived version of the Reimagining Social Work blog. This complete archive preserves all posts, images, and functionality exactly as they appeared, captured using Browsertrix web archiving technology.</p>
+            </div>
+            
+            <div class="section">
+                <h2>Browse the Archive</h2>
+                <div class="browse-options">
+                    <a href="https://replayweb.page/?source=https://pub-9129e4ace37c47eb87cf7f344b693254.r2.dev/rswblog-archive-2025.wacz" class="browse-btn" target="_blank">
+                        <div class="browse-btn-title">🏠 Browse Full Archive</div>
+                        <div class="browse-btn-desc">Explore the complete blog archive with full navigation</div>
+                    </a>
+                    
+                    <!-- ADD YOUR SPECIFIC PAGES HERE -->
+                    <!-- Example template:
+                    <a href="https://replayweb.page/?source=https://pub-9129e4ace37c47eb87cf7f344b693254.r2.dev/rswblog-archive-2025.wacz&url=YOUR_PAGE_URL" class="browse-btn" target="_blank">
+                        <div class="browse-btn-title">📄 Page Title</div>
+                        <div class="browse-btn-desc">Description of this page</div>
+                    </a>
+                    -->
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Fixing Broken Links</h2>
+                <div class="warning-box">
+                <h3>How to Find Archived Pages</h3>
+                <p>If you have an old link to the blog that no longer works (e.g., from a citation, bookmark, or external website), you can find the archived version by following these steps:</p>
+                
+                <ol>
+                    <li><strong>Copy the broken URL</strong> - This might look like:
+                        <div class="example-box">
+                            <div class="example-title">Old/Broken URL:</div>
+                            <div class="example-url">https://www.reimaginingsocialwork.nz/2017/05/post-title/</div>
+                        </div>
+                    </li>
+                    
+                    <li><strong>Convert to the archive format</strong> - Change the URL to use <code>reimaginingsocialwork.nz</code> (remove <code>www.</code> if present):
+                        <div class="example-box">
+                            <div class="example-title">Converted URL:</div>
+                            <div class="example-url">https://reimaginingsocialwork.nz/2017/05/14/post-title/</div>
+                        </div>
+                    </li>
+                    
+                    <li><strong>Search in the archive</strong> - Open the <a href="https://replayweb.page/?source=https://pub-9129e4ace37c47eb87cf7f344b693254.r2.dev/rswblog-archive-2025.wacz" target="_blank" style="color: #856404; text-decoration: underline;">archive browser</a> and copy your converted URL into the search box</li>
+                    
+                    <li><strong>Copy the working archive link</strong> - Once the page loads in the archive, click in your browser's address bar at the top of the screen, select all the text (Cmd+A on Mac, Ctrl+A on Windows), and copy it (Cmd+C or Ctrl+C). This is the permanent link to the archived page:
+                        <div class="example-box">
+                            <div class="example-title">Working Archive Link:</div>
+                            <div class="example-url">https://replayweb.page/?source=https://pub-9129e4ace37c47eb87cf7f344b693254.r2.dev/rswblog-archive-2025.wacz&url=https://reimaginingsocialwork.nz/2017/05/14/post-title/</div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="info-box">
+                <h3>About This Archive</h3>
+                <p><strong>Format:</strong> WACZ (Web Archive Collection Zipped)</p>
+                <p><strong>Archive Date:</strong> November 2025</p>
+                <p><strong>Technology:</strong> Browsertrix + ReplayWeb.page</p>
+                <p><strong>Backup:</strong> Permanently preserved on <a href="https://archive.org/details/rswblog-archive-2025" target="_blank" style="color: #0d47a1;">Internet Archive</a></p>
+                
+                <h3 style="margin-top: 20px;">Navigation Tips</h3>
+                <ul>
+                    <li>Links open in new tabs to maintain full ReplayWeb.page functionality</li>
+                    <li>Use the ReplayWeb.page controls to navigate within the archive</li>
+                    <li>All internal links within archived pages work as originally designed</li>
+                    <li>Download option: <a href="https://archive.org/download/rswblog-archive-2025/rswblog-archive-2025.wacz" style="color: #0d47a1;">WACZ file (689 MB)</a></li>
+                </ul>
             </div>
         </div>
-    </div>
-    
-    <div class="viewer-container">
-        <iframe 
-            id="replay-iframe"
-            src="https://replayweb.page/?source=https://pub-9129e4ace37c47eb87cf7f344b693254.r2.dev/rswblog-archive-2025.wacz&embed=replayonly"
-            allow="cross-origin-isolated"
-            allowfullscreen>
-        </iframe>
     </div>
 </body>
 </html>
